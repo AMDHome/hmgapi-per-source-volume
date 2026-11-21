@@ -1,0 +1,8 @@
+{
+  "id": "per-source-volume",
+  "name": "Per-source volume",
+  "version": "0.1.0",
+  "hmgapi": ">=0.1.0",
+  "description": "Remember volume separately for each media source (radio, BT, AA, CarPlay...) on builds that link them.",
+  "hooks": { "jar": "hooks.jar", "entry": "persourcevolume.PerSourceVolume" }
+}
