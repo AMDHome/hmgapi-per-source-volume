@@ -14,9 +14,11 @@ Newer head unit software (for example the US 260507 build) links every media sou
 
 No settings: turn the mod on or off in the HMG-API app. Changes apply at the next restart of the head unit.
 
-The audio service (`MicomAudioService`) sorts volume slots into types, and every media source's slot is the same type (media). On software in "new volume group" mode, a level change on one media slot is copied to every media slot, saved to every media slot, and any media slot counts as the playing one. The mod gives each media slot a type of its own, with only itself in it, the same way the stock software already handles navigation warnings, CarPlay alerts and beeps. Copying, saving and the check that sends the level to the amplifier then each act on one source.
+Terminology: Slots ≈ Sources
 
-It's a change to two tables (`MicomAudioManagerConstant.VolumeGroupTable` and `mapVolumeGroup`), made once in the zygote at start-up. It uses no hook points and changes no files. Only reason its an HMG-API mod is so that HMG-API can easily and safely run once on boot for me and I don't need to design that part.
+The audio service (`MicomAudioService`) sorts volume slots into types, and every media source's slot is the same type (media). On software using the "new volume group" mode, a volume level change on one media type slot is copied to every other media type slot and saved. The mod gives each media slot a type of its own, with only itself in it, the same way the stock software already handles navigation warnings, CarPlay alerts and beeps. Copying, saving and the check that sends the level to the amplifier then each act on one source.
+
+It's a change to two tables (`MicomAudioManagerConstant.VolumeGroupTable` and `mapVolumeGroup`), made once in the zygote at start-up. It uses no hook points and changes no files. Only reason its an HMG-API mod is so that HMG-API can easily and safely handle running it once on boot. That way I don't need to design that part.
 
 After installing, you will need to set each source's volume once: until then a source comes back at whatever was last saved for it (stock default, or the level from before the mod).
 
@@ -32,16 +34,16 @@ After installing, you will need to set each source's volume once: until then a s
 |---|---|---|---|
 | Kia Niro EV (`DE22EV`) | USA | 260507 | --- |
 
-Other Gen5W cars on the same software may work: the audio service seems to be shared to some extent. The mod doesn't check which car or software it's on. If the tables aren't there it does nothing, but if the software handles them differently it could misbehave. Read "If something goes wrong" before trying it on another car.
+Other Gen5W cars on the same software may work. The audio service seems to be shared to some extent. The mod doesn't check which car or software it's on. If the tables are missing it does nothing, but if the tables exist and the software handles them differently it could misbehave. Read "If something goes wrong" before trying it on another car.
 
 ## If something goes wrong
 
 - **The head unit restarts during start-up:** after 3 failed starts HMG-API's boot guard starts it without any mods. Remove this mod, then turn HMG-API's hooks back on ([Troubleshooting](https://github.com/Open-HMG/HMG-API/wiki/Troubleshooting#the-head-unit-restarted-over-and-over)). This shouldn't happen but I put it here just in case something I can't think of comes up.
-- **The head unit restarts when you turn the volume knob, or the volume knob stops changing the volume:** This is the more likely issue between the two. Your car handles volumes significantly different than mine. Mod wont work for you in the state so turn the mod off/uninstall in the HMG-API app and restart to restore default functionality.
+- **The head unit restarts when you turn the volume knob, or the volume knob stops changing the volume:** This is the more likely issue you might come across between the two. It just means your car handles volumes significantly different than mine. The mod wont work for you in the state so turn the mod off/uninstall in the HMG-API app and restart to restore default functionality. You can submit an issue if you want but I make no promises
 
-The mod writes nothing to `/system`. Removing it and restarting the head unit gives back the stock behaviour; the per-source levels stay in the head unit's settings, and the stock software links them again on the next volume change.
+The mod writes nothing to `/system`. Removing it and restarting the head unit gives back the stock behaviour; the per-source levels stay in the head unit's settings until the stock software links them again on the next volume change.
 
-To check it's working: After start-up HMG-API's log shows `split 35 media volume groups out of type 0 (types 1000-1034)` (the count depends on the car). This means the mod thinks it works. Just try setting volumes on 2 different sources to see if it sticks. Also check if all your volume levels get set properly after restarting the head unit. If so then you're in the clear. Congrats.
+To check it's working: After start-up HMG-API's log shows `split 35 media volume groups out of type 0 (types 1000-1034)` (the count depends on the car). This means the mod thinks it works and has remapped your source slot types. Just try setting volumes on 2 different sources to see if it sticks. Also check if all your volume levels get set properly after restarting the head unit. If so then you're in the clear. Congrats.
 
 ## Installing
 
