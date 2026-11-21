@@ -1,4 +1,4 @@
-package persourcevolume;
+package org.amdhome.persourcevolume;
 
 import java.util.Map;
 import hmgapi.hook.ModContext;
@@ -31,6 +31,7 @@ public final class PerSourceVolume extends ModEntry {
         Map<Integer, int[]> groups;
         int[] media;
         Integer mediaType = null;
+        boolean info = mod.settingBoolean("info_log", true);
 
         try {
             // Load volume tables, and find which type number is "media" on this build
@@ -43,12 +44,12 @@ public final class PerSourceVolume extends ModEntry {
                 if (e.getValue() == media) mediaType = e.getKey();
 
         } catch (Exception e) {
-            mod.log("Error loading volume tables not applying on this build: " + e);
+            mod.log("Error loading volume tables, not applying on this build: " + e);
             return;
         }
 
         if (mediaType == null) {
-            mod.log("Media volume group type not found, nothing to do");
+            if (info) mod.log("Media volume group type not found, nothing to do");
             return;
         }
 
@@ -64,7 +65,7 @@ public final class PerSourceVolume extends ModEntry {
             nextType++;
         }
 
-        mod.log("split " + split + " media volume groups out of type " + mediaType
+        if (info) mod.log("Split " + split + " media volume groups out of type " + mediaType
                 + " (types " + FIRST_TYPE + "-" + (nextType - 1) + ")");
     }
 }

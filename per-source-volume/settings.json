@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "settings": [
+    {
+      "key": "info_log",
+      "type": "toggle",
+      "default": true,
+      "title": "Log at start-up",
+      "description": "One line in HMG-API's log each time the head unit starts, saying the volume groups were split. Problems are logged either way. Takes effect after a restart."
+    }
+  ]
+}

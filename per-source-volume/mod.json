@@ -5,6 +5,10 @@
   "hmgapi": ">=0.1.0",
   "authors": ["AMDHome"],
   "license": "AGPL-3.0",
+  "repo": "https://github.com/AMDHome/hmgapi-per-source-volume",
   "description": "Remember volume separately for each media source (FM, AM, Bluetooth, Android Auto, CarPlay...) on builds that link them to the same volume.",
-  "hooks": { "jar": "hooks.jar", "entry": "persourcevolume.PerSourceVolume" }
+  "hooks": { 
+    "jar": "hooks.jar",
+    "entry": "org.amdhome.persourcevolume.PerSourceVolume"
+  }
 }
