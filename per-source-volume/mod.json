@@ -1,8 +1,10 @@
 {
   "id": "per-source-volume",
   "name": "Per-source volume",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "hmgapi": ">=0.1.0",
-  "description": "Remember volume separately for each media source (radio, BT, AA, CarPlay...) on builds that link them.",
+  "authors": ["AMDHome"],
+  "license": "AGPL-3.0",
+  "description": "Remember volume separately for each media source (FM, AM, Bluetooth, Android Auto, CarPlay...) on builds that link them to the same volume.",
   "hooks": { "jar": "hooks.jar", "entry": "persourcevolume.PerSourceVolume" }
 }
